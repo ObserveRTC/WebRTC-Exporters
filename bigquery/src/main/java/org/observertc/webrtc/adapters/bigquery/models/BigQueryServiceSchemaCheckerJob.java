@@ -57,6 +57,7 @@ public class BigQueryServiceSchemaCheckerJob extends Job {
 	private static final String CREATE_ICE_REMOTE_CANDIDATE_TABLE_TASK_NAME = "CreateICERemoteCandidatesTableTask";
 	private static final String CREATE_MEDIA_SOURCES_TABLE_TASK_NAME = "CreateMediaSourcesTableTask";
 	private static final String CREATE_TRACK_REPORTS_TABLE_TASK_NAME = "CreateTrackReportsTableTask";
+	private static final String CREATE_USER_MEDIA_ERRORS_TASK_NAME = "CreateUserMediaErrorsTableTask";
 
 	private static volatile boolean run = false;
 
@@ -80,6 +81,7 @@ public class BigQueryServiceSchemaCheckerJob extends Job {
 		Task createICERemoteCandidates = this.makeICERemoteCandidateTableTask();
 		Task createMediaSources = this.makeMediaSourcesTableTask();
 		Task createTrackReports = this.makeTrackReportsTableTask();
+		Task createUserMediaErrors = this.makeUserMediaTableTask();
 		this.withTask(createDataset)
 				.withTask(createRTPLossRatioTable)
 				.withTask(createInitiatedCallsTable, createDataset)
@@ -94,6 +96,7 @@ public class BigQueryServiceSchemaCheckerJob extends Job {
 				.withTask(createICERemoteCandidates, createDataset)
 				.withTask(createMediaSources, createDataset)
 				.withTask(createTrackReports, createDataset)
+				.withTask(createUserMediaErrors, createDataset)
 		;
 	}
 
@@ -278,6 +281,38 @@ public class BigQueryServiceSchemaCheckerJob extends Job {
 						Field.newBuilder(DetachedPeerConnectionEntry.TIMEZONE_FIELD_NAME, LegacySQLTypeName.STRING).setMode(Field.Mode.REQUIRED).build()
 						,
 						Field.newBuilder(DetachedPeerConnectionEntry.CUSTOMER_PROVIDED_FIELD_NAME, LegacySQLTypeName.STRING).setMode(Field.Mode.NULLABLE).build()
+
+				);
+				createTableIfNotExists(tableId, schema);
+			}
+		};
+	}
+
+	private Task makeUserMediaTableTask() {
+		return new AbstractTask(CREATE_USER_MEDIA_ERRORS_TASK_NAME) {
+			@Override
+			protected void onExecution(Map<String, Map<String, Object>> results) {
+				TableId tableId = TableId.of(config.projectName, config.datasetName, config.userMediaErrorsTable);
+				Schema schema = Schema.of(
+						Field.newBuilder(UserMediaErrorEntry.SERVICE_UUID_FIELD_NAME, LegacySQLTypeName.STRING).setMode(Field.Mode.REQUIRED).build()
+						,
+						Field.newBuilder(UserMediaErrorEntry.SERVICE_NAME_FIELD_NAME, LegacySQLTypeName.STRING).setMode(Field.Mode.NULLABLE).build()
+						,
+						Field.newBuilder(UserMediaErrorEntry.MEDIA_UNIT_ID_FIELD_NAME, LegacySQLTypeName.STRING).setMode(Field.Mode.NULLABLE).build()
+						,
+						Field.newBuilder(UserMediaErrorEntry.CALL_NAME_FIELD_NAME, LegacySQLTypeName.STRING).setMode(Field.Mode.NULLABLE).build()
+						,
+						Field.newBuilder(UserMediaErrorEntry.USER_ID_FIELD_NAME, LegacySQLTypeName.STRING).setMode(Field.Mode.NULLABLE).build()
+						,
+						Field.newBuilder(UserMediaErrorEntry.BROWSERID_FIELD_NAME, LegacySQLTypeName.STRING).setMode(Field.Mode.REQUIRED).build()
+						,
+						Field.newBuilder(UserMediaErrorEntry.PEER_CONNECTION_UUID_FIELD_NAME, LegacySQLTypeName.STRING).setMode(Field.Mode.NULLABLE).build()
+						,
+						Field.newBuilder(UserMediaErrorEntry.TIMESTAMP_FIELD_NAME, LegacySQLTypeName.INTEGER).setMode(Field.Mode.REQUIRED).build()
+						,
+						Field.newBuilder(UserMediaErrorEntry.MESSAGE_FIELD_NAME, LegacySQLTypeName.STRING).setMode(Field.Mode.REQUIRED).build()
+						,
+						Field.newBuilder(UserMediaErrorEntry.CUSTOMER_PROVIDED_FIELD_NAME, LegacySQLTypeName.STRING).setMode(Field.Mode.NULLABLE).build()
 
 				);
 				createTableIfNotExists(tableId, schema);

@@ -30,6 +30,7 @@ import org.observertc.webrtc.schemas.reports.OutboundRTP;
 import org.observertc.webrtc.schemas.reports.RemoteInboundRTP;
 import org.observertc.webrtc.schemas.reports.Report;
 import org.observertc.webrtc.schemas.reports.Track;
+import org.observertc.webrtc.schemas.reports.UserMediaError;
 
 public interface ReportProcessor extends Consumer<Report> {
 
@@ -80,6 +81,10 @@ public interface ReportProcessor extends Consumer<Report> {
 				ICERemoteCandidate iceRemoteCandidateReport = (ICERemoteCandidate) report.getPayload();
 				this.processICERemoteCandidateReport(report, iceRemoteCandidateReport);
 				break;
+			case USER_MEDIA_ERROR:
+				UserMediaError userMediaErrorReport = (UserMediaError) report.getPayload();
+				this.processUserMediaErrorReport(report, userMediaErrorReport);
+				break;
 			case TRACK:
 				Track trackReport = (Track) report.getPayload();
 				this.processTrackReport(report, trackReport);
@@ -89,7 +94,6 @@ public interface ReportProcessor extends Consumer<Report> {
 				break;
 		}
 	}
-
 
 	default void unprocessable(Report report) {
 
@@ -119,4 +123,5 @@ public interface ReportProcessor extends Consumer<Report> {
 
 	void processMediaSource(Report report, MediaSource mediaSource);
 
+	void processUserMediaErrorReport(Report report, UserMediaError userMediaErrorReport);
 }

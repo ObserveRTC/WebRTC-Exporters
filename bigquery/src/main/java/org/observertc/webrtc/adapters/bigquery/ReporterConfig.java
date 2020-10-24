@@ -34,8 +34,6 @@ public class ReporterConfig {
 
 		public String datasetName = null;
 
-		public String rtpLossRatiosTable = "RTPLossRatios";
-
 		public String initiatedCallsTable = "InitiatedCalls";
 
 		public String finishedCallsTable = "FinishedCalls";
@@ -64,8 +62,13 @@ public class ReporterConfig {
 
 		public String trackReportsTable = "TrackReports";
 
+		public String userMediaErrorsTable = "UserMediaErrors";
+
+		public String rtpLossRatiosTable = "RTPLossRatios";
+
 		public Integer callsCheckPeriodInS = 900;
 		public Integer callsHoldingTimeInS = 7200;
+
 	}
 
 
