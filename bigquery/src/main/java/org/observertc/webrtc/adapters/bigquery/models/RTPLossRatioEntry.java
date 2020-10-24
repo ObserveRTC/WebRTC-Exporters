@@ -26,7 +26,7 @@ public class RTPLossRatioEntry implements BigQueryEntry {
 	public static final String SERVICE_NAME_FIELD_NAME = "serviceName";
 	public static final String CALL_UUID_FIELD_NAME = "callUUID";
 	public static final String CALL_NAME_FIELD_NAME = "callName";
-	public static final String CUSTOMER_PROVIDED_FIELD_NAME = "customerProvided";
+	public static final String MARKER_FIELD_NAME = "marker";
 	public static final String REPORTED_TIMESTAMP_FIELD_NAME = "reportedTimestamp";
 	public static final String STARTED_TIMESTAMP_FIELD_NAME = "startedTimestamp";
 	public static final String PEER_CONNECTION_UUID_FIELD_NAME = "peerConnectionUUID";
@@ -79,7 +79,7 @@ public class RTPLossRatioEntry implements BigQueryEntry {
 
 
 	public RTPLossRatioEntry withCustomProvided(String value) {
-		this.values.put(CUSTOMER_PROVIDED_FIELD_NAME, value);
+		this.values.put(MARKER_FIELD_NAME, value);
 		return this;
 	}
 

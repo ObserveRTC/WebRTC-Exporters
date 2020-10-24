@@ -147,7 +147,7 @@ public class BigQueryServiceSchemaCheckerJob extends Job {
 						,
 						Field.newBuilder(InitiatedCallEntry.TIMESTAMP_FIELD_NAME, LegacySQLTypeName.INTEGER).setMode(Field.Mode.REQUIRED).build()
 						,
-						Field.newBuilder(InitiatedCallEntry.CUSTOMER_PROVIDED_FIELD_NAME, LegacySQLTypeName.STRING).setMode(Field.Mode.NULLABLE).build()
+						Field.newBuilder(InitiatedCallEntry.MARKER_FIELD_NAME, LegacySQLTypeName.STRING).setMode(Field.Mode.NULLABLE).build()
 				);
 				createTableIfNotExists(tableId, schema);
 			}
@@ -170,7 +170,7 @@ public class BigQueryServiceSchemaCheckerJob extends Job {
 						,
 						Field.newBuilder(FinishedCallEntry.TIMESTAMP_FIELD_NAME, LegacySQLTypeName.INTEGER).setMode(Field.Mode.REQUIRED).build()
 						,
-						Field.newBuilder(FinishedCallEntry.CUSTOMER_PROVIDED_FIELD_NAME, LegacySQLTypeName.STRING).setMode(Field.Mode.NULLABLE).build()
+						Field.newBuilder(FinishedCallEntry.MARKER_FIELD_NAME, LegacySQLTypeName.STRING).setMode(Field.Mode.NULLABLE).build()
 				);
 				createTableIfNotExists(tableId, schema);
 			}
@@ -213,7 +213,7 @@ public class BigQueryServiceSchemaCheckerJob extends Job {
 						,
 						Field.newBuilder(RTPLossRatioEntry.PACKETS_LOST_FIELD_NAME, LegacySQLTypeName.INTEGER).setMode(Field.Mode.REQUIRED).build()
 						,
-						Field.newBuilder(RTPLossRatioEntry.CUSTOMER_PROVIDED_FIELD_NAME, LegacySQLTypeName.STRING).setMode(Field.Mode.NULLABLE).build()
+						Field.newBuilder(RTPLossRatioEntry.MARKER_FIELD_NAME, LegacySQLTypeName.STRING).setMode(Field.Mode.NULLABLE).build()
 				);
 				createTableIfNotExists(tableId, schema);
 			}
@@ -246,7 +246,7 @@ public class BigQueryServiceSchemaCheckerJob extends Job {
 						,
 						Field.newBuilder(JoinedPeerConnectionEntry.TIMEZONE_FIELD_NAME, LegacySQLTypeName.STRING).setMode(Field.Mode.REQUIRED).build()
 						,
-						Field.newBuilder(JoinedPeerConnectionEntry.CUSTOMER_PROVIDED_FIELD_NAME, LegacySQLTypeName.STRING).setMode(Field.Mode.NULLABLE).build()
+						Field.newBuilder(JoinedPeerConnectionEntry.MARKER_FIELD_NAME, LegacySQLTypeName.STRING).setMode(Field.Mode.NULLABLE).build()
 
 				);
 				createTableIfNotExists(tableId, schema);
@@ -280,7 +280,7 @@ public class BigQueryServiceSchemaCheckerJob extends Job {
 						,
 						Field.newBuilder(DetachedPeerConnectionEntry.TIMEZONE_FIELD_NAME, LegacySQLTypeName.STRING).setMode(Field.Mode.REQUIRED).build()
 						,
-						Field.newBuilder(DetachedPeerConnectionEntry.CUSTOMER_PROVIDED_FIELD_NAME, LegacySQLTypeName.STRING).setMode(Field.Mode.NULLABLE).build()
+						Field.newBuilder(DetachedPeerConnectionEntry.MARKER_FIELD_NAME, LegacySQLTypeName.STRING).setMode(Field.Mode.NULLABLE).build()
 
 				);
 				createTableIfNotExists(tableId, schema);
@@ -312,7 +312,7 @@ public class BigQueryServiceSchemaCheckerJob extends Job {
 						,
 						Field.newBuilder(UserMediaErrorEntry.MESSAGE_FIELD_NAME, LegacySQLTypeName.STRING).setMode(Field.Mode.REQUIRED).build()
 						,
-						Field.newBuilder(UserMediaErrorEntry.CUSTOMER_PROVIDED_FIELD_NAME, LegacySQLTypeName.STRING).setMode(Field.Mode.NULLABLE).build()
+						Field.newBuilder(UserMediaErrorEntry.MARKER_FIELD_NAME, LegacySQLTypeName.STRING).setMode(Field.Mode.NULLABLE).build()
 
 				);
 				createTableIfNotExists(tableId, schema);
@@ -358,7 +358,7 @@ public class BigQueryServiceSchemaCheckerJob extends Job {
 						,
 						Field.newBuilder(RemoteInboundRTPReportEntry.TRANSPORT_ID_FIELD_NAME, LegacySQLTypeName.STRING).setMode(Field.Mode.REQUIRED).build()
 						,
-						Field.newBuilder(RemoteInboundRTPReportEntry.CUSTOMER_PROVIDED_FIELD_NAME, LegacySQLTypeName.STRING).setMode(Field.Mode.NULLABLE).build()
+						Field.newBuilder(RemoteInboundRTPReportEntry.MARKER_FIELD_NAME, LegacySQLTypeName.STRING).setMode(Field.Mode.NULLABLE).build()
 
 				);
 				createTableIfNotExists(tableId, schema);
@@ -433,7 +433,7 @@ public class BigQueryServiceSchemaCheckerJob extends Job {
 						,
 						Field.newBuilder(InboundRTPReportEntry.FEC_PACKETS_RECEIVED_FIELD_NAME, LegacySQLTypeName.INTEGER).setMode(Field.Mode.NULLABLE).build()
 						,
-						Field.newBuilder(InboundRTPReportEntry.CUSTOMER_PROVIDED_FIELD_NAME, LegacySQLTypeName.STRING).setMode(Field.Mode.NULLABLE).build()
+						Field.newBuilder(InboundRTPReportEntry.MARKER_FIELD_NAME, LegacySQLTypeName.STRING).setMode(Field.Mode.NULLABLE).build()
 
 				);
 
@@ -505,7 +505,7 @@ public class BigQueryServiceSchemaCheckerJob extends Job {
 						,
 						Field.newBuilder(OutboundRTPReportEntry.TOTAL_ENCODED_BYTES_TARGET_FIELD_NAME, LegacySQLTypeName.INTEGER).setMode(Field.Mode.NULLABLE).build()
 						,
-						Field.newBuilder(OutboundRTPReportEntry.CUSTOMER_PROVIDED_FIELD_NAME, LegacySQLTypeName.STRING).setMode(Field.Mode.NULLABLE).build()
+						Field.newBuilder(OutboundRTPReportEntry.MARKER_FIELD_NAME, LegacySQLTypeName.STRING).setMode(Field.Mode.NULLABLE).build()
 
 				);
 				createTableIfNotExists(tableId, schema);
@@ -571,7 +571,7 @@ public class BigQueryServiceSchemaCheckerJob extends Job {
 						,
 						Field.newBuilder(ICECandidatePairEntry.RESPONSES_SENT_FIELD_NAME, LegacySQLTypeName.INTEGER).setMode(Field.Mode.NULLABLE).build()
 						,
-						Field.newBuilder(ICECandidatePairEntry.CUSTOMER_PROVIDED_FIELD_NAME, LegacySQLTypeName.STRING).setMode(Field.Mode.NULLABLE).build()
+						Field.newBuilder(ICECandidatePairEntry.MARKER_FIELD_NAME, LegacySQLTypeName.STRING).setMode(Field.Mode.NULLABLE).build()
 				);
 				createTableIfNotExists(tableId, schema);
 			}
@@ -616,7 +616,7 @@ public class BigQueryServiceSchemaCheckerJob extends Job {
 						,
 						Field.newBuilder(ICELocalCandidateEntry.PROTOCOL_TYPE_FIELD_NAME, LegacySQLTypeName.STRING).setMode(Field.Mode.NULLABLE).build()
 						,
-						Field.newBuilder(ICELocalCandidateEntry.CUSTOMER_PROVIDED_FIELD_NAME, LegacySQLTypeName.STRING).setMode(Field.Mode.NULLABLE).build()
+						Field.newBuilder(ICELocalCandidateEntry.MARKER_FIELD_NAME, LegacySQLTypeName.STRING).setMode(Field.Mode.NULLABLE).build()
 				);
 				createTableIfNotExists(tableId, schema);
 			}
@@ -661,7 +661,7 @@ public class BigQueryServiceSchemaCheckerJob extends Job {
 						,
 						Field.newBuilder(ICERemoteCandidateEntry.PROTOCOL_TYPE_FIELD_NAME, LegacySQLTypeName.STRING).setMode(Field.Mode.NULLABLE).build()
 						,
-						Field.newBuilder(ICERemoteCandidateEntry.CUSTOMER_PROVIDED_FIELD_NAME, LegacySQLTypeName.STRING).setMode(Field.Mode.NULLABLE).build()
+						Field.newBuilder(ICERemoteCandidateEntry.MARKER_FIELD_NAME, LegacySQLTypeName.STRING).setMode(Field.Mode.NULLABLE).build()
 				);
 				createTableIfNotExists(tableId, schema);
 			}
@@ -709,7 +709,7 @@ public class BigQueryServiceSchemaCheckerJob extends Job {
 						,
 						Field.newBuilder(MediaSourceEntry.TOTAL_SAMPLES_DURATION_FIELD_NAME, LegacySQLTypeName.FLOAT).setMode(Field.Mode.NULLABLE).build()
 						,
-						Field.newBuilder(MediaSourceEntry.CUSTOMER_PROVIDED_FIELD_NAME, LegacySQLTypeName.STRING).setMode(Field.Mode.NULLABLE).build()
+						Field.newBuilder(MediaSourceEntry.MARKER_FIELD_NAME, LegacySQLTypeName.STRING).setMode(Field.Mode.NULLABLE).build()
 				);
 				createTableIfNotExists(tableId, schema);
 			}
@@ -788,7 +788,7 @@ public class BigQueryServiceSchemaCheckerJob extends Job {
 						,
 						Field.newBuilder(TrackReportEntry.MEDIA_SOURCE_ID_FIELD_NAME, LegacySQLTypeName.STRING).setMode(Field.Mode.NULLABLE).build()
 						,
-						Field.newBuilder(TrackReportEntry.CUSTOMER_PROVIDED_FIELD_NAME, LegacySQLTypeName.STRING).setMode(Field.Mode.NULLABLE).build()
+						Field.newBuilder(TrackReportEntry.MARKER_FIELD_NAME, LegacySQLTypeName.STRING).setMode(Field.Mode.NULLABLE).build()
 				);
 				createTableIfNotExists(tableId, schema);
 			}

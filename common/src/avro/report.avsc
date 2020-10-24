@@ -1,4 +1,3 @@
-
 {
   "type" : "record",
   "name" : "Report",
@@ -11,7 +10,7 @@
     "type" : [ "null", "string" ],
     "default" : null
   }, {
-    "name" : "customProvided",
+    "name" : "marker",
     "type" : [ "null", "string" ],
     "default" : null
   }, {
