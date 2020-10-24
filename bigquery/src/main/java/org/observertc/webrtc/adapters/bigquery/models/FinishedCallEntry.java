@@ -25,7 +25,7 @@ public class FinishedCallEntry implements BigQueryEntry {
 	public static final String SERVICE_NAME_FIELD_NAME = "serviceName";
 	public static final String CALL_UUID_FIELD_NAME = "callUUID";
 	public static final String CALL_NAME_FIELD_NAME = "callName";
-	public static final String CUSTOMER_PROVIDED_FIELD_NAME = "customerProvided";
+	public static final String MARKER_FIELD_NAME = "marker";
 	public static final String TIMESTAMP_FIELD_NAME = "timestamp";
 
 	private final Map<String, Object> values;
@@ -74,13 +74,13 @@ public class FinishedCallEntry implements BigQueryEntry {
 		return result;
 	}
 
-	public FinishedCallEntry withCustomProvided(String value) {
-		this.values.put(CUSTOMER_PROVIDED_FIELD_NAME, value);
+	public FinishedCallEntry withMarker(String value) {
+		this.values.put(MARKER_FIELD_NAME, value);
 		return this;
 	}
 
-	public String getCustomerProvided() {
-		String result = (String) this.values.get(CUSTOMER_PROVIDED_FIELD_NAME);
+	public String getMarker() {
+		String result = (String) this.values.get(MARKER_FIELD_NAME);
 		return result;
 	}
 

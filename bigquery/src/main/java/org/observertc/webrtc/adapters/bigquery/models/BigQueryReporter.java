@@ -102,7 +102,7 @@ public class BigQueryReporter implements Reporter {
 				.withServiceName(report.getServiceName())
 				.withCallUUID(joinedPeerConnection.getCallUUID())
 				.withCallName(joinedPeerConnection.getCallName())
-				.withCustomProvided(report.getCustomProvided())
+				.withMarker(report.getMarker())
 				.withTimestamp(report.getTimestamp())
 				.withTimeZone("NOT IMPLEMENTED")
 				//
@@ -123,10 +123,9 @@ public class BigQueryReporter implements Reporter {
 				.withServiceName(report.getServiceName())
 				.withCallUUID(detachedPeerConnection.getCallUUID())
 				.withCallName(detachedPeerConnection.getCallName())
-				.withCustomProvided(report.getCustomProvided())
+				.withMarker(report.getMarker())
 				.withTimestamp(report.getTimestamp())
 				.withTimeZone("NOT IMPLEMENTED")
-
 				//
 				.withMediaUnitId(detachedPeerConnection.getMediaUnitId())
 				.withUserId(detachedPeerConnection.getUserId())
@@ -144,7 +143,7 @@ public class BigQueryReporter implements Reporter {
 				.withServiceName(report.getServiceName())
 				.withCallUUID(initiatedCall.getCallUUID())
 				.withCallName(initiatedCall.getCallName())
-				.withCustomProvided(report.getCustomProvided())
+				.withMarker(report.getMarker())
 				.withTimestamp(report.getTimestamp())
 				//
 				;
@@ -158,7 +157,7 @@ public class BigQueryReporter implements Reporter {
 				.withServiceName(report.getServiceName())
 				.withCallUUID(finishedCall.getCallUUID())
 				.withCallName(finishedCall.getCallName())
-				.withCustomProvided(report.getCustomProvided())
+				.withMarker(report.getMarker())
 				.withTimestamp(report.getTimestamp())
 				// 
 				;
@@ -172,7 +171,7 @@ public class BigQueryReporter implements Reporter {
 				.withServiceUUID(report.getServiceUUID())
 				.withServiceName(report.getServiceName())
 				.withCallName(remoteInboundRTP.getCallName())
-				.withCustomProvided(report.getCustomProvided())
+				.withMarker(report.getMarker())
 				.withTimestamp(report.getTimestamp())
 				//
 				.withMediaUnitId(remoteInboundRTP.getMediaUnitId())
@@ -199,7 +198,7 @@ public class BigQueryReporter implements Reporter {
 				.withServiceUUID(report.getServiceUUID())
 				.withServiceName(report.getServiceName())
 				.withCallName(inboundRTP.getCallName())
-				.withCustomProvided(report.getCustomProvided())
+				.withMarker(report.getMarker())
 				.withTimestamp(report.getTimestamp())
 				//
 				.withMediaUnitId(inboundRTP.getMediaUnitId())
@@ -240,7 +239,7 @@ public class BigQueryReporter implements Reporter {
 				.withServiceUUID(report.getServiceUUID())
 				.withServiceName(report.getServiceName())
 				.withCallName(outboundRTP.getCallName())
-				.withCustomProvided(report.getCustomProvided())
+				.withMarker(report.getMarker())
 				.withTimestamp(report.getTimestamp())
 				//
 				.withMediaUnitId(outboundRTP.getMediaUnitId())
@@ -277,7 +276,7 @@ public class BigQueryReporter implements Reporter {
 				.withServiceUUID(report.getServiceUUID())
 				.withServiceName(report.getServiceName())
 				.withCallName(iceCandidatePair.getCallName())
-				.withCustomProvided(report.getCustomProvided())
+				.withMarker(report.getMarker())
 				.withTimestamp(report.getTimestamp())
 				//
 				.withMediaUnitId(iceCandidatePair.getMediaUnitId())
@@ -315,7 +314,7 @@ public class BigQueryReporter implements Reporter {
 				.withServiceUUID(report.getServiceUUID())
 				.withServiceName(report.getServiceName())
 				.withCallName(track.getCallName())
-				.withCustomProvided(report.getCustomProvided())
+				.withMarker(report.getMarker())
 				.withTimestamp(report.getTimestamp())
 				//
 				.withMediaUnitId(track.getMediaUnitId())
@@ -353,7 +352,7 @@ public class BigQueryReporter implements Reporter {
 				.withServiceUUID(report.getServiceUUID())
 				.withServiceName(report.getServiceName())
 				.withCallName(mediaSource.getCallName())
-				.withCustomProvided(report.getCustomProvided())
+				.withMarker(report.getMarker())
 				.withTimestamp(report.getTimestamp())
 				//
 				.withMediaUnitId(mediaSource.getMediaUnitId())
@@ -382,7 +381,7 @@ public class BigQueryReporter implements Reporter {
 				.withServiceUUID(report.getServiceUUID())
 				.withServiceName(report.getServiceName())
 				.withCallName(userMediaErrorReport.getCallName())
-				.withCustomProvided(report.getCustomProvided())
+				.withMarker(report.getMarker())
 				.withTimestamp(report.getTimestamp())
 				//
 				.withUserId(userMediaErrorReport.getUserId())
@@ -401,7 +400,7 @@ public class BigQueryReporter implements Reporter {
 				.withServiceUUID(report.getServiceUUID())
 				.withServiceName(report.getServiceName())
 				.withCallName(iceLocalCandidate.getCallName())
-				.withCustomProvided(report.getCustomProvided())
+				.withMarker(report.getMarker())
 				.withTimestamp(report.getTimestamp())
 				//
 				.withMediaUnitId(iceLocalCandidate.getMediaUnitId())
@@ -429,7 +428,7 @@ public class BigQueryReporter implements Reporter {
 				.withServiceUUID(report.getServiceUUID())
 				.withServiceName(report.getServiceName())
 				.withCallName(iceRemoteCandidate.getCallName())
-				.withCustomProvided(report.getCustomProvided())
+				.withMarker(report.getMarker())
 				.withTimestamp(report.getTimestamp())
 				//
 				.withMediaUnitId(iceRemoteCandidate.getMediaUnitId())

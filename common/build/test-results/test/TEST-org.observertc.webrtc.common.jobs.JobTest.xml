@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.observertc.webrtc.common.jobs.JobTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-09-19T19:01:20" hostname="Balazss-MacBook-Pro.local" time="0.015">
+<testsuite name="org.observertc.webrtc.common.jobs.JobTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-10-24T16:26:20" hostname="Balazss-MacBook-Pro.local" time="0.018">
   <properties/>
-  <testcase name="shouldRunInOrder()" classname="org.observertc.webrtc.common.jobs.JobTest" time="0.015"/>
+  <testcase name="shouldRunInOrder()" classname="org.observertc.webrtc.common.jobs.JobTest" time="0.018"/>
   <system-out><![CDATA[executed
 executed
 executed

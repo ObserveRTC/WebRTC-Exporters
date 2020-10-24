@@ -31,7 +31,7 @@ public class ICELocalCandidateEntry implements BigQueryEntry {
 	public static final String SERVICE_UUID_FIELD_NAME = "serviceUUID";
 	public static final String SERVICE_NAME_FIELD_NAME = "serviceName";
 	public static final String CALL_NAME_FIELD_NAME = "callName";
-	public static final String CUSTOMER_PROVIDED_FIELD_NAME = "customerProvided";
+	public static final String MARKER_FIELD_NAME = "marker";
 	public static final String TIMESTAMP_FIELD_NAME = "timestamp";
 	public static final String PEER_CONNECTION_UUID_FIELD_NAME = "peerConnectionUUID";
 	public static final String BROWSERID_FIELD_NAME = "browserID";
@@ -69,8 +69,8 @@ public class ICELocalCandidateEntry implements BigQueryEntry {
 		return this;
 	}
 
-	public ICELocalCandidateEntry withCustomProvided(String value) {
-		this.values.put(CUSTOMER_PROVIDED_FIELD_NAME, value);
+	public ICELocalCandidateEntry withMarker(String value) {
+		this.values.put(MARKER_FIELD_NAME, value);
 		return this;
 	}
 
