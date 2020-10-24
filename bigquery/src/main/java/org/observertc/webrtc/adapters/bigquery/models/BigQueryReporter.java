@@ -32,6 +32,7 @@ import org.observertc.webrtc.schemas.reports.OutboundRTP;
 import org.observertc.webrtc.schemas.reports.RemoteInboundRTP;
 import org.observertc.webrtc.schemas.reports.Report;
 import org.observertc.webrtc.schemas.reports.Track;
+import org.observertc.webrtc.schemas.reports.UserMediaError;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -53,6 +54,7 @@ public class BigQueryReporter implements Reporter {
 	private final BigQueryTable<ICERemoteCandidateEntry> iceRemoteCandidates;
 	private final BigQueryTable<MediaSourceEntry> mediaSources;
 	private final BigQueryTable<TrackReportEntry> trackReports;
+	private final BigQueryTable<UserMediaErrorEntry> userMediaErrorReports;
 	private final RTPLossRatiosTable rtpLossRatios;
 
 	public BigQueryReporter(ReporterConfig.BigQueryReporterConfig config) {
@@ -69,6 +71,7 @@ public class BigQueryReporter implements Reporter {
 		this.iceRemoteCandidates = new BigQueryTableImpl<>(bigQueryService, config.iceRemoteCandidatesTable);
 		this.trackReports = new BigQueryTableImpl<>(bigQueryService, config.trackReportsTable);
 		this.mediaSources = new BigQueryTableImpl<>(bigQueryService, config.mediaSourcesTable);
+		this.userMediaErrorReports = new BigQueryTableImpl<UserMediaErrorEntry>(bigQueryService, config.userMediaErrorsTable);
 
 		this.rtpLossRatios = new RTPLossRatiosTable(bigQueryService, config.rtpLossRatiosTable);
 	}
@@ -87,6 +90,7 @@ public class BigQueryReporter implements Reporter {
 		this.remoteInboundRTPSamples.flush();
 		this.trackReports.flush();
 		this.mediaSources.flush();
+		this.userMediaErrorReports.flush();
 		this.rtpLossRatios.flush();
 	}
 
@@ -370,6 +374,25 @@ public class BigQueryReporter implements Reporter {
 				;
 
 		mediaSources.add(reportEntry);
+	}
+
+	@Override
+	public void processUserMediaErrorReport(Report report, UserMediaError userMediaErrorReport) {
+		UserMediaErrorEntry entry = new UserMediaErrorEntry()
+				.withServiceUUID(report.getServiceUUID())
+				.withServiceName(report.getServiceName())
+				.withCallName(userMediaErrorReport.getCallName())
+				.withCustomProvided(report.getCustomProvided())
+				.withTimestamp(report.getTimestamp())
+				//
+				.withUserId(userMediaErrorReport.getUserId())
+				.withBrowserId(userMediaErrorReport.getBrowserId())
+				.withMediaUnitId(userMediaErrorReport.getMediaUnitId())
+				.withMessage(userMediaErrorReport.getMessage())
+				.withPeerConnectionUUID(userMediaErrorReport.getPeerConnectionUUID())
+				//
+				;
+		userMediaErrorReports.add(entry);
 	}
 
 	@Override
