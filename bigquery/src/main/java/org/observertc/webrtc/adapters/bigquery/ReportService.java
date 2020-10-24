@@ -50,6 +50,7 @@ import org.slf4j.LoggerFactory;
 @Prototype
 public class ReportService {
 
+
 	private static final Logger logger = LoggerFactory.getLogger(ReportService.class);
 	private final SpecificDatumReader<Report> reader = new SpecificDatumReader<>(Report.class);
 

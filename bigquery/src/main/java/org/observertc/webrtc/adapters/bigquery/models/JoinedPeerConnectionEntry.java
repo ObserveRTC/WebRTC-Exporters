@@ -45,9 +45,9 @@ public class JoinedPeerConnectionEntry implements BigQueryEntry {
 		return this;
 	}
 
-	public JoinedPeerConnectionEntry withCallUUID(String value) {
-		this.values.put(CALL_UUID_FIELD_NAME, value.toString());
-		return this;
+	public String getServiceUUID() {
+		String result = (String) this.values.get(SERVICE_UUID_FIELD_NAME);
+		return result;
 	}
 
 	public JoinedPeerConnectionEntry withServiceName(String value) {
@@ -55,9 +55,30 @@ public class JoinedPeerConnectionEntry implements BigQueryEntry {
 		return this;
 	}
 
+	public String getServiceName() {
+		String result = (String) this.values.get(SERVICE_NAME_FIELD_NAME);
+		return result;
+	}
+
+	public JoinedPeerConnectionEntry withCallUUID(String value) {
+		this.values.put(CALL_UUID_FIELD_NAME, value);
+		return this;
+	}
+
+	public String getCallUUID() {
+		String result = (String) this.values.get(CALL_UUID_FIELD_NAME);
+		return result;
+	}
+
+
 	public JoinedPeerConnectionEntry withCallName(String value) {
 		this.values.put(CALL_NAME_FIELD_NAME, value);
 		return this;
+	}
+
+	public String getCallName() {
+		String result = (String) this.values.get(CALL_NAME_FIELD_NAME);
+		return result;
 	}
 
 	public JoinedPeerConnectionEntry withUserId(String value) {
@@ -65,9 +86,19 @@ public class JoinedPeerConnectionEntry implements BigQueryEntry {
 		return this;
 	}
 
+	public String getUserId() {
+		String result = (String) this.values.get(USER_ID_FIELD_NAME);
+		return result;
+	}
+
 	public JoinedPeerConnectionEntry withCustomProvided(String value) {
 		this.values.put(CUSTOMER_PROVIDED_FIELD_NAME, value);
 		return this;
+	}
+
+	public String getCustomProvided() {
+		String result = (String) this.values.get(CUSTOMER_PROVIDED_FIELD_NAME);
+		return result;
 	}
 
 	public JoinedPeerConnectionEntry withPeerConnectionUUID(String value) {
@@ -75,9 +106,19 @@ public class JoinedPeerConnectionEntry implements BigQueryEntry {
 		return this;
 	}
 
+	public String getPeerConnectionUUID() {
+		String result = (String) this.values.get(PEER_CONNECTION_UUID_FIELD_NAME);
+		return result;
+	}
+
 	public JoinedPeerConnectionEntry withBrowserId(String value) {
 		this.values.put(BROWSERID_FIELD_NAME, value);
 		return this;
+	}
+
+	public String getBrowserId() {
+		String result = (String) this.values.get(BROWSERID_FIELD_NAME);
+		return result;
 	}
 
 	public JoinedPeerConnectionEntry withTimestamp(Long value) {
@@ -85,14 +126,29 @@ public class JoinedPeerConnectionEntry implements BigQueryEntry {
 		return this;
 	}
 
+	public Long getTimestamp() {
+		Long result = (Long) this.values.get(TIMESTAMP_FIELD_NAME);
+		return result;
+	}
+
 	public JoinedPeerConnectionEntry withMediaUnitId(String value) {
 		this.values.put(MEDIA_UNIT_ID_FIELD_NAME, value);
 		return this;
 	}
 
+	public String getMediaUnitId() {
+		String result = (String) this.values.get(MEDIA_UNIT_ID_FIELD_NAME);
+		return result;
+	}
+
 	public JoinedPeerConnectionEntry withTimeZone(String value) {
 		this.values.put(TIMEZONE_FIELD_NAME, value);
 		return this;
+	}
+
+	public String getTimeZone() {
+		String result = (String) this.values.get(TIMEZONE_FIELD_NAME);
+		return result;
 	}
 
 	public Map<String, Object> toMap() {

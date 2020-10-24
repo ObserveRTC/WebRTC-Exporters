@@ -57,6 +57,8 @@ dependencies {
 
     implementation "io.micronaut.configuration:micronaut-kafka:$micronautKafkaVersion"
     compile 'com.google.cloud:google-cloud-bigquery:1.116.3'
+
+//    compile "io.reactivex.rxjava3:rxjava:3.x.y"
 }
 
 
@@ -72,17 +74,6 @@ test {
 java {
     sourceCompatibility = JavaVersion.toVersion('1.8')
     targetCompatibility = JavaVersion.toVersion('1.8')
-}
-
-
-//googleApplicationCredentials = ClassLoader.getSystemClassLoader().getResource("ObserveRTC-5d4c3683dd2c.json");
-run {
-    //environment 'GOOGLE_APPLICATION_CREDENTIALS', file('/Users/balazskreith.finago/github/observertc/gatekeeper/webrtcstat/src/main/resources/ObserveRTC-5d4c3683dd2c.json').absolutePath
-//    println System.getenv('GOOGLE_APPLICATION_CREDENTIALS')
-//    if (System.getenv('GOOGLE_APPLICATION_CREDENTIALS') == null) {
-//        throw new MissingResourceException("GOOGLE_APPLICATION_CREDENTIALS environment value must be set. ")
-//         environment 'GOOGLE_APPLICATION_CREDENTIALS', file('/Users/balazskreith.finago/github/observertc/gatekeeper/webrtcstat/src/main/resources/ObserveRTC-5d4c3683dd2c.json').absolutePath
-//    }
 }
 
 

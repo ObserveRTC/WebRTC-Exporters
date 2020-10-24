@@ -1,8 +1,8 @@
 #!/bin/bash
 
-VERSION=0.4
+VERSION=0.2
 
 docker login
 
-docker build -f BigQueryAdapter.dockerfile . -t observertc/webrtc-bigquery-adapter:$VERSION
-docker push observertc/webrtc-bigquery-adapter:$VERSION
+docker build -f BigQueryExporter.dockerfile . -t observertc/webrtc-bigquery-exporter:$VERSION
+docker push observertc/webrtc-bigquery-exporter:$VERSION

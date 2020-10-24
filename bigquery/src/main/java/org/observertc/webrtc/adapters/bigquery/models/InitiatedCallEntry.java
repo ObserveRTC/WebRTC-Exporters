@@ -39,9 +39,19 @@ public class InitiatedCallEntry implements BigQueryEntry {
 		return this;
 	}
 
+	public String getServiceUUID() {
+		String result = (String) this.values.get(SERVICE_UUID_FIELD_NAME);
+		return result;
+	}
+
 	public InitiatedCallEntry withCallUUID(String value) {
 		this.values.put(CALL_UUID_FIELD_NAME, value.toString());
 		return this;
+	}
+
+	public String getCallUUID() {
+		String result = (String) this.values.get(CALL_UUID_FIELD_NAME);
+		return result;
 	}
 
 	public InitiatedCallEntry withServiceName(String value) {
@@ -49,9 +59,19 @@ public class InitiatedCallEntry implements BigQueryEntry {
 		return this;
 	}
 
+	public String getServiceName() {
+		String result = (String) this.values.get(SERVICE_NAME_FIELD_NAME);
+		return result;
+	}
+
 	public InitiatedCallEntry withCallName(String value) {
 		this.values.put(CALL_NAME_FIELD_NAME, value);
 		return this;
+	}
+
+	public String getCallName() {
+		String result = (String) this.values.get(CALL_NAME_FIELD_NAME);
+		return result;
 	}
 
 	public InitiatedCallEntry withCustomProvided(String value) {
@@ -59,9 +79,19 @@ public class InitiatedCallEntry implements BigQueryEntry {
 		return this;
 	}
 
+	public String getCustomerProvided() {
+		String result = (String) this.values.get(CUSTOMER_PROVIDED_FIELD_NAME);
+		return result;
+	}
+
 	public InitiatedCallEntry withTimestamp(Long value) {
 		this.values.put(TIMESTAMP_FIELD_NAME, value);
 		return this;
+	}
+
+	public Long getTimestamp() {
+		Long result = (Long) this.values.get(TIMESTAMP_FIELD_NAME);
+		return result;
 	}
 
 	public Map<String, Object> toMap() {

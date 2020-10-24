@@ -24,7 +24,7 @@ pluginManagement {
         }
     }
 }
-rootProject.name = "WebRTC-Report-Adapters"
+rootProject.name = "WebRTC-Exporters"
 include 'common'
 include 'bigquery'
 

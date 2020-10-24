@@ -53,21 +53,24 @@ public class BigQueryReporter implements Reporter {
 	private final BigQueryTable<ICERemoteCandidateEntry> iceRemoteCandidates;
 	private final BigQueryTable<MediaSourceEntry> mediaSources;
 	private final BigQueryTable<TrackReportEntry> trackReports;
+	private final RTPLossRatiosTable rtpLossRatios;
 
 	public BigQueryReporter(ReporterConfig.BigQueryReporterConfig config) {
 		this.bigQueryService = new BigQueryService(config.projectName, config.datasetName);
-		this.initiatedCalls = new BigQueryTable(bigQueryService, config.initiatedCallsTable);
-		this.finishedCalls = new BigQueryTable(bigQueryService, config.finishedCallsTable);
-		this.joinedPeerConnections = new BigQueryTable(bigQueryService, config.joinedPeerConnectionsTable);
-		this.detachedPeerConnections = new BigQueryTable(bigQueryService, config.detachedPeerConnectionsTable);
-		this.remoteInboundRTPSamples = new BigQueryTable<>(bigQueryService, config.remoteInboundRTPSamplesTable);
-		this.inboundRTPSamples = new BigQueryTable<>(bigQueryService, config.inboundRTPSamplesTable);
-		this.outboundRTPSamples = new BigQueryTable<>(bigQueryService, config.outboundRTPSamplesTable);
-		this.iceCandidatePairs = new BigQueryTable<>(bigQueryService, config.iceCandidatePairsTable);
-		this.iceLocalCandidates = new BigQueryTable<>(bigQueryService, config.iceLocalCandidatesTable);
-		this.iceRemoteCandidates = new BigQueryTable<>(bigQueryService, config.iceRemoteCandidatesTable);
-		this.trackReports = new BigQueryTable<>(bigQueryService, config.trackReportsTable);
-		this.mediaSources = new BigQueryTable<>(bigQueryService, config.mediaSourcesTable);
+		this.initiatedCalls = new BigQueryTableImpl(bigQueryService, config.initiatedCallsTable);
+		this.finishedCalls = new BigQueryTableImpl(bigQueryService, config.finishedCallsTable);
+		this.joinedPeerConnections = new BigQueryTableImpl(bigQueryService, config.joinedPeerConnectionsTable);
+		this.detachedPeerConnections = new BigQueryTableImpl(bigQueryService, config.detachedPeerConnectionsTable);
+		this.remoteInboundRTPSamples = new BigQueryTableImpl<>(bigQueryService, config.remoteInboundRTPSamplesTable);
+		this.inboundRTPSamples = new BigQueryTableImpl<>(bigQueryService, config.inboundRTPSamplesTable);
+		this.outboundRTPSamples = new BigQueryTableImpl<>(bigQueryService, config.outboundRTPSamplesTable);
+		this.iceCandidatePairs = new BigQueryTableImpl<>(bigQueryService, config.iceCandidatePairsTable);
+		this.iceLocalCandidates = new BigQueryTableImpl<>(bigQueryService, config.iceLocalCandidatesTable);
+		this.iceRemoteCandidates = new BigQueryTableImpl<>(bigQueryService, config.iceRemoteCandidatesTable);
+		this.trackReports = new BigQueryTableImpl<>(bigQueryService, config.trackReportsTable);
+		this.mediaSources = new BigQueryTableImpl<>(bigQueryService, config.mediaSourcesTable);
+
+		this.rtpLossRatios = new RTPLossRatiosTable(bigQueryService, config.rtpLossRatiosTable);
 	}
 
 	@Override
@@ -84,6 +87,7 @@ public class BigQueryReporter implements Reporter {
 		this.remoteInboundRTPSamples.flush();
 		this.trackReports.flush();
 		this.mediaSources.flush();
+		this.rtpLossRatios.flush();
 	}
 
 	@Override
@@ -105,6 +109,7 @@ public class BigQueryReporter implements Reporter {
 				//
 				;
 		joinedPeerConnections.add(entry);
+		rtpLossRatios.joinedPeerConnection(entry);
 	}
 
 	@Override
@@ -139,7 +144,7 @@ public class BigQueryReporter implements Reporter {
 				.withTimestamp(report.getTimestamp())
 				//
 				;
-		initiatedCalls.add(entry);
+		this.initiatedCalls.add(entry);
 	}
 
 	@Override
@@ -154,7 +159,7 @@ public class BigQueryReporter implements Reporter {
 				// 
 				;
 //				finishedCalls.insert(finishedCallEntry);
-		finishedCalls.add(entry);
+		this.finishedCalls.add(entry);
 	}
 
 	@Override
@@ -181,6 +186,7 @@ public class BigQueryReporter implements Reporter {
 				//
 				;
 		remoteInboundRTPSamples.add(entry);
+		rtpLossRatios.processRemoteInboundRTP(entry);
 	}
 
 	@Override
@@ -258,6 +264,7 @@ public class BigQueryReporter implements Reporter {
 				.withTotalPacketsSendDelay(outboundRTP.getTotalPacketSendDelay())
 				.withTotalEncodedByesTarget(outboundRTP.getTotalEncodedBytesTarget());
 		outboundRTPSamples.add(entry);
+		rtpLossRatios.processOutboundRTP(entry);
 	}
 
 	@Override
@@ -332,7 +339,7 @@ public class BigQueryReporter implements Reporter {
 				.withSilentConcealedSamples(track.getSilentConcealedSamples())
 				.withTotalSamplesReceived(track.getTotalSamplesReceived())
 				.withMediaSourceID(track.getMediaSourceID());
-//				trackReports.insert(reportEntry);
+
 		trackReports.add(entry);
 	}
 
@@ -361,7 +368,7 @@ public class BigQueryReporter implements Reporter {
 				.withTotalSamplesDuration(mediaSource.getTotalSamplesDuration())
 				//
 				;
-//				mediaSources.insert(reportEntry);
+
 		mediaSources.add(reportEntry);
 	}
 
@@ -389,7 +396,7 @@ public class BigQueryReporter implements Reporter {
 				.withProtocol(iceLocalCandidate.getProtocol())
 				//
 				;
-//				iceLocalCandidates.insert(iceCandidatePairEntry);
+
 		iceLocalCandidates.add(entry);
 	}
 
@@ -416,7 +423,7 @@ public class BigQueryReporter implements Reporter {
 				.withProtocol(iceRemoteCandidate.getProtocol())
 				//
 				;
-//				iceRemoteCandidates.insert(iceRemoteCandidateEntry);
+
 		iceRemoteCandidates.add(entry);
 	}
 

@@ -32,10 +32,10 @@ import com.google.cloud.bigquery.TableId;
 import com.google.cloud.bigquery.TableInfo;
 import java.util.Map;
 import javax.inject.Singleton;
+import org.observertc.webrtc.adapters.bigquery.ReporterConfig;
 import org.observertc.webrtc.common.jobs.AbstractTask;
 import org.observertc.webrtc.common.jobs.Job;
 import org.observertc.webrtc.common.jobs.Task;
-import org.observertc.webrtc.adapters.bigquery.ReporterConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,6 +46,7 @@ public class BigQueryServiceSchemaCheckerJob extends Job {
 	private static final String CREATE_DATASET_TASK_NAME = "CreateDatasetTask";
 	private static final String CREATE_INITIATED_CALL_TABLE_TASK_NAME = "CreateInitiatedCallsTableTask";
 	private static final String CREATE_FINISHED_CALL_TABLE_TASK_NAME = "CreateFinishedCallsTableTask";
+	private static final String CREATE_RTP_LOSS_RATIO_TABLE_TASK_NAME = "CreateCallsTableTask";
 	private static final String CREATE_JOINED_PEER_CONNECTIONS_TABLE_TASK_NAME = "CreateJoinedPeerConnectionsTableTask";
 	private static final String CREATE_DETACHED_PEER_CONNECTIONS_TABLE_TASK_NAME = "CreateDetachedPeerConnectionsTableTask";
 	private static final String CREATE_REMOTE_INBOUND_RTP_SAMPLES_TABLE_TASK_NAME = "CreateRemoteInboundRTPSamplesTableTask";
@@ -68,6 +69,7 @@ public class BigQueryServiceSchemaCheckerJob extends Job {
 		Task createDataset = this.makeCreateDatasetTask();
 		Task createInitiatedCallsTable = this.makeCreateInitiatedCallsTableTask();
 		Task createFinishedCallsTable = this.makeCreateFinishedCallsTableTask();
+		Task createRTPLossRatioTable = this.makeCreateRTPLossRatioTableTask();
 		Task createJoinedPeerConnectionsTable = this.makeJoinedPeerConnectionsTableTask();
 		Task createDetachedPeerConnectionsTable = this.makeDetachedPeerConnectionsTableTask();
 		Task createRemoteInboundRTPSamplesTable = this.makeRemoteInboundRTPSamplesTableTask();
@@ -79,6 +81,7 @@ public class BigQueryServiceSchemaCheckerJob extends Job {
 		Task createMediaSources = this.makeMediaSourcesTableTask();
 		Task createTrackReports = this.makeTrackReportsTableTask();
 		this.withTask(createDataset)
+				.withTask(createRTPLossRatioTable)
 				.withTask(createInitiatedCallsTable, createDataset)
 				.withTask(createFinishedCallsTable, createDataset)
 				.withTask(createJoinedPeerConnectionsTable, createDataset)
@@ -165,6 +168,49 @@ public class BigQueryServiceSchemaCheckerJob extends Job {
 						Field.newBuilder(FinishedCallEntry.TIMESTAMP_FIELD_NAME, LegacySQLTypeName.INTEGER).setMode(Field.Mode.REQUIRED).build()
 						,
 						Field.newBuilder(FinishedCallEntry.CUSTOMER_PROVIDED_FIELD_NAME, LegacySQLTypeName.STRING).setMode(Field.Mode.NULLABLE).build()
+				);
+				createTableIfNotExists(tableId, schema);
+			}
+		};
+	}
+
+	private Task makeCreateRTPLossRatioTableTask() {
+		return new AbstractTask(CREATE_RTP_LOSS_RATIO_TABLE_TASK_NAME) {
+			@Override
+			protected void onExecution(Map<String, Map<String, Object>> results) {
+				TableId tableId = TableId.of(config.projectName, config.datasetName, config.rtpLossRatiosTable);
+				Schema schema = Schema.of(
+						Field.newBuilder(RTPLossRatioEntry.SERVICE_UUID_FIELD_NAME, LegacySQLTypeName.STRING).setMode(Field.Mode.REQUIRED).build()
+						,
+						Field.newBuilder(RTPLossRatioEntry.SERVICE_NAME_FIELD_NAME, LegacySQLTypeName.STRING).setMode(Field.Mode.NULLABLE).build()
+						,
+						Field.newBuilder(RTPLossRatioEntry.CALL_UUID_FIELD_NAME, LegacySQLTypeName.STRING).setMode(Field.Mode.NULLABLE).build()
+						,
+						Field.newBuilder(RTPLossRatioEntry.CALL_NAME_FIELD_NAME, LegacySQLTypeName.STRING).setMode(Field.Mode.NULLABLE).build()
+						,
+						Field.newBuilder(RTPLossRatioEntry.REPORTED_TIMESTAMP_FIELD_NAME, LegacySQLTypeName.INTEGER).setMode(Field.Mode.NULLABLE).build()
+						,
+						Field.newBuilder(RTPLossRatioEntry.STARTED_TIMESTAMP_FIELD_NAME, LegacySQLTypeName.INTEGER).setMode(Field.Mode.NULLABLE).build()
+						,
+						Field.newBuilder(RTPLossRatioEntry.PEER_CONNECTION_UUID_FIELD_NAME, LegacySQLTypeName.STRING).setMode(Field.Mode.NULLABLE).build()
+						,
+						Field.newBuilder(RTPLossRatioEntry.SSRC_FIELD_NAME, LegacySQLTypeName.INTEGER).setMode(Field.Mode.NULLABLE).build()
+						,
+						Field.newBuilder(RTPLossRatioEntry.BROWSERID_FIELD_NAME, LegacySQLTypeName.STRING).setMode(Field.Mode.NULLABLE).build()
+						,
+						Field.newBuilder(RTPLossRatioEntry.MEDIA_TYPE_FIELD_NAME, LegacySQLTypeName.STRING).setMode(Field.Mode.NULLABLE).build()
+						,
+						Field.newBuilder(RTPLossRatioEntry.MEDIA_UNIT_ID_FIELD_NAME, LegacySQLTypeName.STRING).setMode(Field.Mode.NULLABLE).build()
+						,
+						Field.newBuilder(RTPLossRatioEntry.USER_ID_FIELD_NAME, LegacySQLTypeName.STRING).setMode(Field.Mode.NULLABLE).build()
+						,
+						Field.newBuilder(RTPLossRatioEntry.LOSS_RATIO_FIELD_NAME, LegacySQLTypeName.FLOAT).setMode(Field.Mode.REQUIRED).build()
+						,
+						Field.newBuilder(RTPLossRatioEntry.PACKETS_SENT_FIELD_NAME, LegacySQLTypeName.INTEGER).setMode(Field.Mode.REQUIRED).build()
+						,
+						Field.newBuilder(RTPLossRatioEntry.PACKETS_LOST_FIELD_NAME, LegacySQLTypeName.INTEGER).setMode(Field.Mode.REQUIRED).build()
+						,
+						Field.newBuilder(RTPLossRatioEntry.CUSTOMER_PROVIDED_FIELD_NAME, LegacySQLTypeName.STRING).setMode(Field.Mode.NULLABLE).build()
 				);
 				createTableIfNotExists(tableId, schema);
 			}
