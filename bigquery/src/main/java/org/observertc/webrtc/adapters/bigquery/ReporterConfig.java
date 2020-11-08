@@ -16,6 +16,8 @@
 
 package org.observertc.webrtc.adapters.bigquery;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.micronaut.context.annotation.ConfigurationProperties;
 
 @ConfigurationProperties("reporter")
@@ -69,6 +71,15 @@ public class ReporterConfig {
 		public Integer callsCheckPeriodInS = 900;
 		public Integer callsHoldingTimeInS = 7200;
 
+		@Override
+		public String toString() {
+			try {
+				return new ObjectMapper().writeValueAsString(this);
+			} catch (JsonProcessingException e) {
+				e.printStackTrace();
+				return super.toString();
+			}
+		}
 	}
 
 

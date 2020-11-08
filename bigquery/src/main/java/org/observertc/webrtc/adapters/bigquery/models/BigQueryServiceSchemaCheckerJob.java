@@ -65,6 +65,7 @@ public class BigQueryServiceSchemaCheckerJob extends Job {
 	private final ReporterConfig.BigQueryReporterConfig config;
 
 	public BigQueryServiceSchemaCheckerJob(ReporterConfig.BigQueryReporterConfig config) {
+		logger.info("Configuration for reporter {}", config.toString());
 		this.bigQuery = BigQueryOptions.getDefaultInstance().getService();
 		this.config = config;
 		Task createDataset = this.makeCreateDatasetTask();
@@ -123,7 +124,8 @@ public class BigQueryServiceSchemaCheckerJob extends Job {
 					return;
 				}
 				logger.info("Dataset {} does not exists, try to create it", config.datasetName);
-				DatasetInfo datasetInfo = DatasetInfo.newBuilder(config.datasetName).build();
+
+				DatasetInfo datasetInfo = DatasetInfo.newBuilder(datasetId).build();
 				Dataset newDataset = bigQuery.create(datasetInfo);
 				String newDatasetName = newDataset.getDatasetId().getDataset();
 				logger.info("BigQuery dataset {} created successfully", newDatasetName);

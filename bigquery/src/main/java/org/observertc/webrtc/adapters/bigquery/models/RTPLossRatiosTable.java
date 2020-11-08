@@ -101,6 +101,14 @@ public class RTPLossRatiosTable {
 	}
 
 	public void flush() {
+		try {
+			this.doFlush();
+		} catch (Exception ex) {
+			logger.error("Error happened during flushing: ", ex);
+		}
+	}
+
+	private void doFlush() {
 		Instant now = Instant.now();
 		Duration duration = Duration.between(this.lastFullCheck, now);
 		if (120 < duration.getSeconds()) {

@@ -1,6 +1,6 @@
 micronaut:
   server:
-    port: ${APPLICATION_SERVER_PORT:9888}
+    port: ${APPLICATION_SERVER_PORT:7086}
   application:
     name: WebRTC-BigQueryReporter
 kafka:
